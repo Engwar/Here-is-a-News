@@ -10,17 +10,22 @@ import UIKit
 
 class NewsTableViewController: UITableViewController {
     
-    var news = [News(header: "1", date: Date.init(), description: "3", image: "4")]
+    var news = [News]()
     var cellManager = CellManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        getData()
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return news.count
+        var num = news.count
+        if news.count > 20 {
+            num = 20
+        }
+        return num
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -29,27 +34,29 @@ class NewsTableViewController: UITableViewController {
         cellManager.configure(cell, with: new)
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func getData() {
+        let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=e2c238227b3f4437b4fa4dd7fb395789")!
+        let task = URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else { print("Data has not converted"); return }
+            
+            let jsonDecoder = JSONDecoder()
+            
+            guard let report = try? jsonDecoder.decode(News.self, from: data) else { print("Data cannot be decoded as JSON"); return}
+            
+                print(report)
+            self.news = [report]
+            }
+    
+        task.resume()
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
- 
 
 }
+
+//extension URL {
+//    func withQueries (_ queries: [String: String]) -> URL? {
+//        var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
+//        components?.queryItems = queries.map {URLQueryItem(name: $0.key, value: $0.value)}
+//        return components?.url
+//    }
+//}

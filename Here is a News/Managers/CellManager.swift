@@ -13,6 +13,6 @@ class CellManager {
     func configure (_ cell: NewsCell, with news: News) {
         cell.header.text = news.header
         cell.date.text = "\(news.date)"
-        cell.descript.text = news.description
+        cell.descript.text = news.descript
     }
 }

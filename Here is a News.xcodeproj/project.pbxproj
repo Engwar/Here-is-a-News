@@ -64,8 +64,8 @@
 			children = (
 				94875E61234F6CFB0007C3F9 /* AppDelegate.swift */,
 				94875E63234F6CFB0007C3F9 /* SceneDelegate.swift */,
-				94875E7D234F82670007C3F9 /* Managers */,
 				94875E67234F6CFB0007C3F9 /* Main.storyboard */,
+				94875E7D234F82670007C3F9 /* Managers */,
 				94875E77234F786D0007C3F9 /* NewsTableViewController.swift */,
 				94875E7B234F80DB0007C3F9 /* NewsCell.swift */,
 				94875E79234F7A660007C3F9 /* News.swift */,
