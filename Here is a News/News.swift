@@ -13,24 +13,12 @@ struct Articles: Codable {
 }
 
 struct News: Codable {
-        var header: String?
-        var date: Date
-        var descript: String
-        var img: URL
-        
-        init(from decoder: Decoder) throws {
-            let valueContainer = try decoder.container(keyedBy: CodingKeys.self)
-            
-            header = try valueContainer.decode(String.self, forKey: .header)
-            date = try valueContainer.decode(Date.self, forKey: .date)
-            descript = try valueContainer.decode(String.self, forKey: .descript)
-            img = try valueContainer.decode(URL.self, forKey: .img)
-        }
+        var title: String?
+        var publishedAt: Date
+        var author: String?
+        var urlToImage: String?
         
         enum CodingKeys: String, CodingKey {
-            case header = "author"
-            case date = "publishedAt"
-            case descript = "description"
-            case img = "urlToImage"
+            case title, publishedAt, urlToImage, author
     }
 }
